@@ -1,4 +1,5 @@
 import axios, { AxiosError } from 'axios'
+import { notifyError } from './toastify'
 interface ApiErrorResponse {
   message: string | string[]
 }
@@ -20,6 +21,7 @@ instance.interceptors.response.use(undefined, (error: AxiosError) => {
   if (!error.response) {
     // Si aucune erreur est présente on utilise un message par défaut
     errorMessage = DEFAULT_ERROR_MESSAGE
+    notifyError(DEFAULT_ERROR_MESSAGE)
   } else {
     const data = error.response.data as ApiErrorResponse
 
