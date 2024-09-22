@@ -1,40 +1,48 @@
-<script setup>
+<script setup lang="ts">
 import { ref } from 'vue'
-import KidizzButton from '@/components/Button.vue'
-import KidizzInput from '@/components/Input.vue'
-
+import KidizzButton from '@/components/KidizzButton.vue'
+import { findByUsername, createUser } from '@/services/UserService'
+import { router } from '@/router'
+import { Routes } from '@/interfaces/enum/routes.enum'
+import { storeUserInSession } from '@/services/SessionService'
+import {notifyError}from '@/plugins/toastify'
 const username = ref('')
 const email = ref('')
 const isNewUser = ref(false)
-const isLoggedIn = ref(false)
-const loggedInUser = ref('')
+const loading = ref(false)
 
 const checkUser = async () => {
-  // Simuler une vérification d'utilisateur
-  const userExists = await fakeUserCheck(username.value)
-  if (userExists) {
-    loginUser(username.value)
-  } else {
+  try {
+    loading.value = true
+    const user = await findByUsername(username.value)
+    if (user) {
+      await storeUserInSession(user)
+      router.push(Routes.CHILDCARELISTE)
+    }
     isNewUser.value = true
+  } catch (error) {
+    console.log(error)
+  } finally {
+    loading.value = false
   }
 }
 
-const createUser = async () => {
-  // Simuler la création d'un utilisateur
-  await fakeCreateUser(username.value, email.value)
-  loginUser(username.value)
+const handleCreateUser = async () => {
+  try {
+    loading.value = true
+    const newUser = await createUser({ username: username.value, email: email.value })
+    await storeUserInSession(newUser)
+    router.push(Routes.CHILDCARELISTE)
+  } catch (error) {
+    notifyError(error);
+  } finally {
+    loading.value = false
+  }
 }
 
-const loginUser = (user) => {
-  isLoggedIn.value = true
-  loggedInUser.value = user
-  // Ici, vous pourriez stocker l'utilisateur dans le localStorage ou un store global
+const showUserNameSelection = () => {
+  isNewUser.value = false
 }
-
-// Ces fonctions simulent des appels API
-const fakeUserCheck = (user) =>
-  new Promise((resolve) => setTimeout(() => resolve(Math.random() > 0.5), 500))
-const fakeCreateUser = (user, email) => new Promise((resolve) => setTimeout(resolve, 500))
 </script>
 
 <template>
@@ -52,23 +60,56 @@ const fakeCreateUser = (user, email) => new Promise((resolve) => setTimeout(reso
           Bienvenue chez Kidizz
         </h2>
       </div>
-      <div v-if="!isLoggedIn" class="mt-8 space-y-6">
+      <div>
         <div v-if="!isNewUser">
-          <KidizzInput v-model="username" placeholder="Nom d'utilisateur" type="text" />
-          <KidizzButton @click="checkUser" class="mt-4 w-full" variant="primary" size="md">
+          <label for="username" class="sr-only">Nom d'utilisateur</label>
+          <input
+            id="username"
+            name="username"
+            type="text"
+            required
+            v-model="username"
+            class="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+            placeholder="Nom d'utilisateur"
+          />
+          <KidizzButton @click="checkUser" class="mt-4 w-full" :is-loading="loading">
             Se connecter
           </KidizzButton>
         </div>
         <div v-else>
-          <KidizzInput v-model="email" placeholder="Email" type="email" />
-          <KidizzButton @click="createUser" class="mt-4 w-full" variant="secondary" size="md">
+          <p>
+            Bonjour <strong>{{ username }}</strong
+            >. Veuillez indiquer votre addresse email pour creer un compte
+          </p>
+          <label for="email" class="sr-only mt-4">Email</label>
+          <input
+            id="email"
+            name="email"
+            type="email"
+            required
+            v-model="email"
+            class="appearance-none rounded-md relative block mt-4 w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+            placeholder="Email"
+          />
+          <KidizzButton
+            @click="handleCreateUser"
+            class="mt-4 w-full"
+            variant="secondary"
+            size="md"
+            :is-loading="loading"
+          >
             Créer un compte
           </KidizzButton>
+          <KidizzButton
+            @click="showUserNameSelection"
+            class="mt-4"
+            variant="primary"
+            size="sm"
+            :is-loading="loading"
+          >
+            Essayer avec un autre utilisateur
+          </KidizzButton>
         </div>
-      </div>
-      <div v-else class="text-center">
-        <p class="text-2xl font-bold text-kidizz-gray-900">Bonjour, {{ loggedInUser }} !</p>
-        <p class="mt-2 text-kidizz-gray-600">Vous êtes maintenant connecté à Kidizz.</p>
       </div>
     </div>
   </div>
