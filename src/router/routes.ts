@@ -2,7 +2,7 @@ import { Routes } from '@/interfaces/enum/routes.enum';
 import Login from '@/views/Login.vue';
 import NotFound from '@/views/NotFound.vue';
 import ChildCareList from '@/views/ChildCareList.vue';
-
+import AddChildCare from '@/views/AddChildCare.vue'
 export const routes = [
   {
     path: '/',
@@ -22,8 +22,16 @@ export const routes = [
   },
   {
     path: '/:pathMatch(.*)*',
-    name: 'notFound',
+    name: Routes.NOT_FOUND,
     component: NotFound,
+    meta: {
+      isPublic: true
+    }
+  },
+   {
+    path: '/addChildCare',
+    name: Routes.ADD_CHILD_CARE,
+    component: AddChildCare,
     meta: {
       isPublic: true
     }

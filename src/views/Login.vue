@@ -13,6 +13,10 @@ const loading = ref(false)
 
 const checkUser = async () => {
   try {
+    if (!username.value) {
+      notifyError(`Nom d'utilisateur obligatoire`)
+      return
+    }
     loading.value = true
     const user = await findByUsername(username.value)
     if (user) {

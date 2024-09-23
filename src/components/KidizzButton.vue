@@ -2,7 +2,7 @@
 import { PropType, computed } from 'vue'
 
 interface ButtonProps {
-  variant: 'primary' | 'secondary';
+  variant: 'primary' | 'secondary' | 'danger';
   size: 'sm' | 'md' | 'lg';
 }
 
@@ -16,7 +16,8 @@ const classes = computed<string>(() => {
   const baseClasses = 'text-white font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2'
   const variantClasses = {
     primary: 'bg-kidizz-blue-500 hover:bg-kidizz-blue-600 focus:ring-kidizz-blue-500',
-    secondary: 'bg-kidizz-green-500 hover:bg-kidizz-green-600 focus:ring-kidizz-green-500'
+    secondary: 'bg-kidizz-green-500 hover:bg-kidizz-green-600 focus:ring-kidizz-green-500',
+    danger: 'bg-red-500 hover:bg-red-600 focus:ring-red-500'
   }
   const sizeClasses = {
     sm: 'px-3 py-2 text-sm',
