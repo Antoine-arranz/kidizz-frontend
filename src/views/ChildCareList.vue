@@ -60,7 +60,7 @@ const closeDeleteConfirmation = () => {
 watch(
   () => route.name,
   () => {
-    if (route.name === Routes.CHILDCARELISTE) {
+    if (route.name === Routes.CHILD_CARE_LISTE) {
       fetchChildCares()
     }
   }

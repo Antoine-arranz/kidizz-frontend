@@ -23,7 +23,7 @@ const checkUser = async () => {
     const user = await findByUsername(username.value)
     if (user) {
       await storeUserInSession(user)
-      router.push({ name: Routes.CHILDCARELISTE })
+      router.push({ name: Routes.CHILD_CARE_LISTE })
     }
     isNewUser.value = true
   } catch (error) {
@@ -38,7 +38,7 @@ const handleCreateUser = async () => {
     loading.value = true
     const newUser = await createUser({ username: username.value, email: email.value })
     await storeUserInSession(newUser)
-    router.push({ name: Routes.CHILDCARELISTE })
+    router.push({ name: Routes.CHILD_CARE_LISTE })
   } catch (error) {
     notifyError(error)
   } finally {

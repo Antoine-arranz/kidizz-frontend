@@ -13,7 +13,7 @@ import KidizzInput from '@/components/KidizzInput.vue'
 const route = useRoute()
 const router = useRouter()
 const childCare = ref<ChildCare | null>(null)
-const daycareId = +route.params.id
+const childCareId = +route.params.id
 const firstName = ref('')
 const lastName = ref('')
 const searchQuery = ref('')
@@ -29,8 +29,8 @@ const handleCreateChild = async () => {
       notifyError('Le prénom et le nom de lenfant sont requis.')
       return
     }
-    await createChild({ firstName: firstName.value, lastName: lastName.value, daycareId })
-    router.push({ name: Routes.CHILD_LIST, params: { id: daycareId } })
+    await createChild({ firstName: firstName.value, lastName: lastName.value, childCareId })
+    router.push({ name: Routes.CHILD_LIST, params: { id: childCareId } })
   } catch (error) {
     notifyError(error)
   } finally {
@@ -68,7 +68,7 @@ const handleAssociateChild = async () => {
       return
     }
     // await associateChildWithDaycare(selectedChild.value.id, daycareId)
-    router.push({ name: Routes.CHILD_LIST, params: { id: daycareId } })
+    router.push({ name: Routes.CHILD_LIST, params: { id: childCareId } })
   } catch (error) {
     notifyError(error)
   } finally {
@@ -76,20 +76,20 @@ const handleAssociateChild = async () => {
   }
 }
 
-const getDayCareName = async () => {
+const getChildCareName = async () => {
   try {
-    childCare.value = await getOneChildCare(daycareId)
+    childCare.value = await getOneChildCare(childCareId)
   } catch (error) {
     notifyError(error)
   }
 }
 
 const backToChildList = () => {
-  router.push({ name: Routes.CHILD_LIST, params: { id: daycareId } })
+  router.push({ name: Routes.CHILD_LIST, params: { id: childCareId } })
 }
 
 onMounted(() => {
-  getDayCareName()
+  getChildCareName()
 })
 </script>
 

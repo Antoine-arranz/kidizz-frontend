@@ -14,7 +14,7 @@ router.beforeEach((to, from, next) => {
     // Si pas d'utilisateur et la route n'est pas '/', redirigez vers '/'
     next({name : Routes.HOME})
   } else if (userSession && to.path === '/') {
-    next({name : Routes.CHILDCARELISTE})
+    next({name : Routes.CHILD_CARE_LISTE})
   } else {
     next()
   }

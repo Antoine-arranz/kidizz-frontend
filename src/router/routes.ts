@@ -17,8 +17,8 @@ export const routes = [
     }
   },
   {
-    path: '/childcares',
-    name: Routes.CHILDCARELISTE,
+    path: '/creches',
+    name: Routes.CHILD_CARE_LISTE,
     component: ChildCareList,
     meta: {
       isPublic: true
@@ -33,7 +33,7 @@ export const routes = [
     }
   },
   {
-    path: '/addChildCare',
+    path: '/ajout-creche',
     name: Routes.ADD_CHILD_CARE,
     component: AddChildCare,
     meta: {
@@ -41,7 +41,7 @@ export const routes = [
     }
   },
   {
-    path: '/childCare/:id',
+    path: '/creche/:id',
     name: Routes.CHILD_LIST,
     component: ChildList,
     meta: {
@@ -49,7 +49,7 @@ export const routes = [
     }
   },
    {
-    path: '/addChild/:id',
+    path: '/ajout-enfant/:id',
     name: Routes.ADD_CHILD,
     component: AddChild,
     meta: {

@@ -18,7 +18,7 @@ const handleCreateChildCare = async () => {
       return
     }
     await createChildCare(childCareName.value)
-    router.push({ name: Routes.CHILDCARELISTE })
+    router.push({ name: Routes.CHILD_CARE_LISTE })
   } catch (error) {
     notifyError(error)
   } finally {
@@ -27,7 +27,7 @@ const handleCreateChildCare = async () => {
 }
 
 const backToChildCareList = () => {
-  router.push({ name: Routes.CHILDCARELISTE })
+  router.push({ name: Routes.CHILD_CARE_LISTE })
 }
 </script>
 

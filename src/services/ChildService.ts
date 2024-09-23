@@ -5,14 +5,14 @@ import { getUserFromSession } from './SessionService'
 export const createChild = async (params: CreateChildParams): Promise<void> => {
   const user = await getUserFromSession()
 
-  const { firstName, lastName, daycareId } = params
+  const { firstName, lastName, childCareId } = params
   if (user) {
     await axios.post(
       '/child',
       {
         firstName,
         lastName,
-        daycareId
+        childCareId
       },
       {
         headers: {

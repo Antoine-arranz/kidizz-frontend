@@ -6,7 +6,7 @@ import { notifyError } from '@/plugins/toastify'
 import { Child } from '@/interfaces/Child'
 import { router } from '@/router'
 import { Routes } from '@/interfaces/enum/routes.enum'
-import { getChildrenByDaycare, getOneChildCare } from '@/services/ChildCareService'
+import { getChildrenByChildCare, getOneChildCare } from '@/services/ChildCareService'
 import { ChildCare } from '@/interfaces/ChildCare'
 import KidizzDialog from '@/components/KidizzDialog.vue'
 import { removeChildFromChildCare } from '@/services/ChildService'
@@ -23,7 +23,7 @@ const childToDelete = ref<Child | null>(null)
 const fetchChildren = async () => {
   try {
     loading.value = true
-    children.value = await getChildrenByDaycare(+childCareId)
+    children.value = await getChildrenByChildCare(+childCareId)
   } catch (error) {
     notifyError(error)
   } finally {
@@ -31,7 +31,7 @@ const fetchChildren = async () => {
   }
 }
 
-const getDayCareName = async () => {
+const getChildCareName = async () => {
   try {
     childCare.value = await getOneChildCare(+childCareId)
   } catch (error) {
@@ -72,11 +72,11 @@ const handleCreateChild = () => {
 }
 
 const goToChildList = () => {
-  router.push({ name: Routes.CHILDCARELISTE })
+  router.push({ name: Routes.CHILD_CARE_LISTE })
 }
 
 onMounted(() => {
-  getDayCareName()
+  getChildCareName()
   fetchChildren()
 })
 </script>
