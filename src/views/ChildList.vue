@@ -9,7 +9,7 @@ import { Routes } from '@/interfaces/enum/routes.enum'
 import { getChildrenByDaycare, getOneChildCare } from '@/services/ChildCareService'
 import { ChildCare } from '@/interfaces/ChildCare'
 import KidizzDialog from '@/components/KidizzDialog.vue'
-import {removeChildFromChildCare} from '@/services/ChildService'
+import { removeChildFromChildCare } from '@/services/ChildService'
 
 const route = useRoute()
 const loading = ref(false)
@@ -17,7 +17,6 @@ const children = ref<Child[]>([])
 const childCare = ref<ChildCare | null>(null)
 const childCareId = route.params.id as string
 
-// Nouvelles variables pour la pop-up de confirmation
 const showDeleteConfirmation = ref(false)
 const childToDelete = ref<Child | null>(null)
 

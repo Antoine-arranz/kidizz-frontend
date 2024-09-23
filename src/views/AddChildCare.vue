@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import KidizzButton from '@/components/KidizzButton.vue'
+import KidizzInput from '@/components/KidizzInput.vue'
 import { router } from '@/router'
 import { Routes } from '@/interfaces/enum/routes.enum'
 import { notifyError } from '@/plugins/toastify'
@@ -26,7 +27,7 @@ const handleCreateChildCare = async () => {
 }
 
 const backToChildCareList = () => {
-  router.push({name:Routes.CHILDCARELISTE})
+  router.push({ name: Routes.CHILDCARELISTE })
 }
 </script>
 
@@ -40,9 +41,12 @@ const backToChildCareList = () => {
       </div>
       <div>
         <label for="name" class="sr-only">Nom de la crèche</label>
-        <input id="name" name="name" type="text" required v-model="childCareName"
-          class="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-          placeholder="Nom de la crèche" />
+        <KidizzInput
+          id="name"
+          type="text"
+          v-model="childCareName"
+          placeholder="Nom de la crèche"
+        ></KidizzInput>
         <KidizzButton @click="handleCreateChildCare" class="mt-4 w-full" :is-loading="loading">
           Ajouter une crèche
         </KidizzButton>

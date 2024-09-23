@@ -8,6 +8,7 @@ import { Routes } from '@/interfaces/enum/routes.enum'
 import { ChildCare } from '@/interfaces/ChildCare'
 import { Child } from '@/interfaces/Child'
 import { getOneChildCare } from '@/services/ChildCareService'
+import KidizzInput from '@/components/KidizzInput.vue'
 
 const route = useRoute()
 const router = useRouter()
@@ -129,22 +130,8 @@ onMounted(() => {
       </div>
 
       <div v-if="activeTab === 'create'" class="space-y-4">
-        <input
-          id="firstName"
-          v-model="firstName"
-          type="text"
-          required
-          class="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-kidizz-primary focus:border-kidizz-primary transition duration-300 ease-in-out"
-          placeholder="Prénom de l'enfant"
-        />
-        <input
-          id="lastName"
-          v-model="lastName"
-          type="text"
-          required
-          class="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-kidizz-primary focus:border-kidizz-primary transition duration-300 ease-in-out"
-          placeholder="Nom de l'enfant"
-        />
+        <KidizzInput id="firstName" v-model="firstName" placeholder="Prénom de l'enfant" required />
+        <KidizzInput id="lastName" v-model="lastName" placeholder="Nom de l'enfant" required />
         <KidizzButton @click="handleCreateChild" class="w-full" :is-loading="loading">
           Ajouter un enfant
         </KidizzButton>
@@ -152,12 +139,7 @@ onMounted(() => {
 
       <div v-if="activeTab === 'associate'" class="space-y-4">
         <div class="flex space-x-2">
-          <input
-            v-model="searchQuery"
-            type="text"
-            class="flex-grow appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-kidizz-primary focus:border-kidizz-primary transition duration-300 ease-in-out"
-            placeholder="Rechercher un enfant par nom"
-          />
+          <KidizzInput v-model="searchQuery" placeholder="Rechercher un enfant par nom" />
           <KidizzButton @click="handleSearchChild" :is-loading="loading"> Rechercher </KidizzButton>
         </div>
 
