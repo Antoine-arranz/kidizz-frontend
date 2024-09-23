@@ -6,17 +6,17 @@ import { Routes } from '@/interfaces/enum/routes.enum'
 import { notifyError } from '@/plugins/toastify'
 import { createChildCare } from '@/services/ChildCareService'
 
-const nurseryName = ref('')
+const childCareName = ref('')
 const loading = ref(false)
 
-const handleCreateNursery = async () => {
+const handleCreateChildCare = async () => {
   try {
     loading.value = true
-    if (!nurseryName.value) {
+    if (!childCareName.value) {
       notifyError('Le nom de la crèche est requis.')
       return
     }
-    await createChildCare(nurseryName.value)
+    await createChildCare(childCareName.value)
     router.push({ name: Routes.CHILDCARELISTE })
   } catch (error) {
     notifyError(error)
@@ -40,10 +40,10 @@ const backToChildCareList = () => {
       </div>
       <div>
         <label for="name" class="sr-only">Nom de la crèche</label>
-        <input id="name" name="name" type="text" required v-model="nurseryName"
+        <input id="name" name="name" type="text" required v-model="childCareName"
           class="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
           placeholder="Nom de la crèche" />
-        <KidizzButton @click="handleCreateNursery" class="mt-4 w-full" :is-loading="loading">
+        <KidizzButton @click="handleCreateChildCare" class="mt-4 w-full" :is-loading="loading">
           Ajouter une crèche
         </KidizzButton>
         <KidizzButton @click="backToChildCareList" class="mt-4" variant="secondary">

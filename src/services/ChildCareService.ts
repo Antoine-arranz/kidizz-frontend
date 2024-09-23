@@ -3,6 +3,7 @@ import { User } from '@/interfaces/User'
 import { axios } from '@/plugins/axios'
 import { getUserFromSession } from './SessionService'
 import { ChildCare } from '@/interfaces/ChildCare'
+import { Child } from '@/interfaces/Child'
 
 export const createChildCare = async (name: string): Promise<void> => {
   const user = await getUserFromSession()
@@ -35,4 +36,15 @@ export const deleteChildCare = async (childCareId: number): Promise<void> => {
       }
     })
   }
+}
+
+export const getChildrenByDaycare = async (childCareId: number): Promise<Child[]> => {
+  const response = await axios.get(`/child-cares/${childCareId}/children`, {})
+  return response.data
+}
+
+
+export const getOneChildCare = async (childCareId: number): Promise<ChildCare | null> => {
+  const response = await axios.get(`/child-cares/${childCareId}`)
+  return response.data
 }

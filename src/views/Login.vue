@@ -25,7 +25,7 @@ const checkUser = async () => {
     }
     isNewUser.value = true
   } catch (error) {
-    console.log(error)
+    notifyError(error)
   } finally {
     loading.value = false
   }
