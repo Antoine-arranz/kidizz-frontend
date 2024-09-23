@@ -43,7 +43,6 @@ export const getChildrenByChildCare = async (childCareId: number): Promise<Child
   return response.data
 }
 
-
 export const getOneChildCare = async (childCareId: number): Promise<ChildCare | null> => {
   const response = await axios.get(`/child-cares/${childCareId}`)
   return response.data

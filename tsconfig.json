@@ -18,25 +18,12 @@
     "experimentalDecorators": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "types": [
-      "node",
-    ],
+    "types": ["node"],
     "paths": {
       "@/*": ["./src/*"],
       "tests/*": ["./tests/*"]
     },
-    "lib": [
-      "ES2020",
-      "DOM",
-      "DOM.Iterable",
-      "scripthost",
-      "WebWorker"
-    ]
+    "lib": ["ES2020", "DOM", "DOM.Iterable", "scripthost", "WebWorker"]
   },
-  "include": [
-    "src/**/*.ts",
-    "src/**/*.d.ts",
-    "src/**/*.vue",
-    "tests/**/*.ts"
-  ]
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.vue", "tests/**/*.ts"]
 }

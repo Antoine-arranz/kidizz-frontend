@@ -6,7 +6,6 @@ import AddChildCare from '@/views/AddChildCare.vue'
 import ChildList from '@/views/ChildList.vue'
 import AddChild from '@/views/AddChild.vue'
 
-
 export const routes = [
   {
     path: '/',
@@ -48,7 +47,7 @@ export const routes = [
       isPublic: true
     }
   },
-   {
+  {
     path: '/ajout-enfant/:id',
     name: Routes.ADD_CHILD,
     component: AddChild,

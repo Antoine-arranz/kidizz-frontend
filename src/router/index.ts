@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { routes } from './routes'
-import {getUserFromSession} from '@/services/SessionService'
+import { getUserFromSession } from '@/services/SessionService'
 import { Routes } from '@/interfaces/enum/routes.enum'
 const router = createRouter({
   history: createWebHistory(),
@@ -8,13 +8,13 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  const userSession = getUserFromSession() 
+  const userSession = getUserFromSession()
 
   if (!userSession && to.path !== '/') {
     // Si pas d'utilisateur et la route n'est pas '/', redirigez vers '/'
-    next({name : Routes.HOME})
+    next({ name: Routes.HOME })
   } else if (userSession && to.path === '/') {
-    next({name : Routes.CHILD_CARE_LISTE})
+    next({ name: Routes.CHILD_CARE_LISTE })
   } else {
     next()
   }
