@@ -3,7 +3,7 @@ import { ref, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import KidizzButton from '@/components/KidizzButton.vue'
 import { notifyError } from '@/plugins/toastify'
-import { createChild, searchChildByName } from '@/services/ChildService'
+import { createChild, searchChildByName, associateChildWithDaycare } from '@/services/ChildService'
 import { Routes } from '@/interfaces/enum/routes.enum'
 import { ChildCare } from '@/interfaces/ChildCare'
 import { Child } from '@/interfaces/Child'
@@ -67,7 +67,7 @@ const handleAssociateChild = async () => {
       notifyError('Veuillez sélectionner un enfant.')
       return
     }
-    // await associateChildWithDaycare(selectedChild.value.id, daycareId)
+    await associateChildWithDaycare(selectedChild.value.id, childCareId)
     router.push({ name: Routes.CHILD_LIST, params: { id: childCareId } })
   } catch (error) {
     notifyError(error)

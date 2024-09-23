@@ -47,4 +47,7 @@ export const searchChildByName = async (name: string): Promise<Child[] | []> => 
   return response.data
 }
 
-///child/search?name=Dupont
+export const associateChildWithDaycare = async (childId: number, childCareId: number): Promise<void> => {
+  await axios.post(`/child/${childId}/associate/${childCareId}`)
+}
+///:childId/associate/:childCareId
