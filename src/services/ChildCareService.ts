@@ -1,5 +1,3 @@
-// UserService.ts
-import { User } from '@/interfaces/User'
 import { axios } from '@/plugins/axios'
 import { getUserFromSession } from './SessionService'
 import { ChildCare } from '@/interfaces/ChildCare'

@@ -1,4 +1,3 @@
-// UserService.ts
 import { User } from '@/interfaces/User'
 import { axios } from '@/plugins/axios'
 
