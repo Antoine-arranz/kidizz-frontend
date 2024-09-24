@@ -2,7 +2,7 @@
 import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import KidizzButton from '@/components/KidizzButton.vue'
-import { notifyError } from '@/plugins/toastify'
+import { notifyError, notifySuccess } from '@/plugins/toastify'
 import { Child } from '@/interfaces/Child'
 import { router } from '@/router'
 import { Routes } from '@/interfaces/enum/routes.enum'
@@ -56,6 +56,8 @@ const handleDeleteChild = async () => {
     loading.value = true
     await removeChildFromChildCare(childToDelete.value.id, +childCareId)
     await fetchChildren()
+    notifySuccess(`L'enfant ${childToDelete.value.firstName} ${childToDelete.value.lastName} a bien été supprimé`)
+
   } catch (error) {
     notifyError(error)
   } finally {

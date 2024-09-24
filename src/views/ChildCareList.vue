@@ -3,7 +3,7 @@ import { ref, onMounted, watch } from 'vue'
 import KidizzButton from '@/components/KidizzButton.vue'
 import { router } from '@/router'
 import { Routes } from '@/interfaces/enum/routes.enum'
-import { notifyError } from '@/plugins/toastify'
+import { notifyError, notifySuccess } from '@/plugins/toastify'
 import { deleteChildCare, getAllChildCares } from '@/services/ChildCareService'
 import { ChildCare } from '@/interfaces/ChildCare'
 import { useRoute } from 'vue-router'
@@ -26,6 +26,7 @@ const handleDeleteChildCare = async (): Promise<void> => {
       deleteLoader.value = true
       await deleteChildCare(childCareToDelete.value.id)
       await fetchChildCares()
+      notifySuccess(`La crèche ${childCareToDelete.value.name} a bien été supprimée`)
     }
   } catch (error) {
     notifyError(error)
