@@ -39,7 +39,7 @@ export const deleteChildCare = async (childCareId: number): Promise<void> => {
 }
 
 export const getChildrenByChildCare = async (childCareId: number): Promise<Child[]> => {
-  const response = await axios.get(`/child-cares/${childCareId}/children`, {})
+  const response = await axios.get(`/child/child-care/${childCareId}/children`, {})
   return response.data
 }
 

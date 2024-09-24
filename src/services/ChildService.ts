@@ -50,4 +50,3 @@ export const searchChildByName = async (name: string): Promise<Child[] | []> => 
 export const associateChildWithDaycare = async (childId: number, childCareId: number): Promise<void> => {
   await axios.post(`/child/${childId}/associate/${childCareId}`)
 }
-///:childId/associate/:childCareId
