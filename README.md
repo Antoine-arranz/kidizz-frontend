@@ -10,6 +10,8 @@ Kidizz est une application de gestion d'enfants et de crèches, développée dan
 - Langage : TypeScript
 - Tailwind
 - Vite
+- vue3-toastify
+- axios
 
 ## Fonctionnalités Principales
 
