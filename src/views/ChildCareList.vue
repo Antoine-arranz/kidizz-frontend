@@ -8,6 +8,8 @@ import { deleteChildCare, getAllChildCares } from '@/services/ChildCareService'
 import { ChildCare } from '@/interfaces/ChildCare'
 import { useRoute } from 'vue-router'
 import KidizzDialog from '@/components/KidizzDialog.vue'
+import { getExport } from '@/services/ChildService'
+import CsvIcon from '@/assets/csv.svg'
 
 const loading = ref(false)
 const deleteLoader = ref(false)
@@ -58,6 +60,15 @@ const closeDeleteConfirmation = () => {
   showDeleteConfirmation.value = false
   childCareToDelete.value = null
 }
+
+const handleExportCsv = async (childcareId?: number) => {
+  try {
+    await getExport(childcareId)
+  } catch (error) {
+    notifyError(error)
+  }
+}
+
 watch(
   () => route.name,
   () => {
@@ -75,9 +86,20 @@ onMounted(fetchChildCares)
     <div class="max-w-4xl w-full space-y-8 bg-white p-8 rounded-lg shadow-md">
       <div class="flex justify-between items-center mb-6">
         <h2 class="text-3xl font-extrabold text-kidizz-gray-900">Liste des crèches</h2>
-        <KidizzButton @click="handleCreateChildCare" :is-loading="loading">
-          Créer une nouvelle crèche
-        </KidizzButton>
+        <div class="flex space-x-4">
+          <KidizzButton @click="handleCreateChildCare" variant="primary">
+            Créer une nouvelle crèche
+          </KidizzButton>
+          <KidizzButton
+            @click="handleExportCsv()"
+            variant="secondary"
+            class="flex items-center"
+            title="Exporter toutes les crèches"
+          >
+            <img :src="CsvIcon" alt="CSV Icon" class="w-5 h-5 mr-2" />
+            Exporter tout
+          </KidizzButton>
+        </div>
       </div>
 
       <div v-if="loading" class="text-center">Chargement des crèches...</div>
@@ -88,18 +110,14 @@ onMounted(fetchChildCares)
           <li
             v-for="childCare in childCares"
             :key="childCare.id"
-            class="p-4 flex justify-between items-center"
+            class="p-4 flex justify-between items-center hover:bg-gray-50"
           >
             <span class="text-lg font-medium text-gray-900">{{ childCare.name }}</span>
-            <div>
-              <KidizzButton
-                @click="goToChildList(childCare.id)"
-                class="mr-2"
-                variant="secondary"
-                size="sm"
-              >
+            <div class="flex space-x-2">
+              <KidizzButton @click="goToChildList(childCare.id)" variant="secondary" size="sm">
                 Voir détails
               </KidizzButton>
+
               <KidizzButton
                 @click="openDeleteConfirmation(childCare)"
                 variant="danger"
@@ -107,6 +125,15 @@ onMounted(fetchChildCares)
                 :is-loading="deleteLoader"
               >
                 Supprimer
+              </KidizzButton>
+              <KidizzButton
+                @click="handleExportCsv(childCare.id)"
+                variant="primary"
+                size="sm"
+                class="flex items-center px-0.5 py-0.5"
+                :title="`Exporter ${childCare.name}`"
+              >
+                <img :src="CsvIcon" alt="CSV Icon" class="w-6 h-6" />
               </KidizzButton>
             </div>
           </li>
@@ -116,11 +143,12 @@ onMounted(fetchChildCares)
         Aucune crèche enregistrée pour le moment.
       </div>
     </div>
+
     <!-- Pop-up de confirmation de suppression -->
     <KidizzDialog
       :show="showDeleteConfirmation"
       title="Confirmer la suppression"
-      :message="`Êtes-vous sûr de vouloir supprimer la crêche ${childCareToDelete?.name} ? Cette action est irréversible.`"
+      :message="`Êtes-vous sûr de vouloir supprimer la crèche ${childCareToDelete?.name} ? Cette action est irréversible.`"
       @cancel="closeDeleteConfirmation"
       @confirm="handleDeleteChildCare"
       :is-loading="loading"

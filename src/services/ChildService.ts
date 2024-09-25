@@ -47,6 +47,23 @@ export const searchChildByName = async (name: string): Promise<Child[] | []> => 
   return response.data
 }
 
-export const associateChildWithDaycare = async (childId: number, childCareId: number): Promise<void> => {
+export const associateChildWithDaycare = async (
+  childId: number,
+  childCareId: number
+): Promise<void> => {
   await axios.post(`/child/${childId}/associate/${childCareId}`)
+}
+
+export const getExport = async (childCareId?: number) => {
+  const response = await axios.get('/child/export.csv', {
+    params: { childCareId },
+    responseType: 'blob'
+  })
+  const url = window.URL.createObjectURL(new Blob([response.data]))
+  const link = document.createElement('a')
+  link.href = url
+  link.setAttribute('download', 'children.csv')
+  document.body.appendChild(link)
+  link.click()
+  link.remove()
 }

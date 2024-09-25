@@ -56,8 +56,9 @@ const handleDeleteChild = async () => {
     loading.value = true
     await removeChildFromChildCare(childToDelete.value.id, +childCareId)
     await fetchChildren()
-    notifySuccess(`L'enfant ${childToDelete.value.firstName} ${childToDelete.value.lastName} a bien été supprimé`)
-
+    notifySuccess(
+      `L'enfant ${childToDelete.value.firstName} ${childToDelete.value.lastName} a bien été supprimé`
+    )
   } catch (error) {
     notifyError(error)
   } finally {

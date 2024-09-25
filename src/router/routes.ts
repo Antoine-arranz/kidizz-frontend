@@ -10,33 +10,32 @@ export const routes = [
   {
     path: '/',
     name: Routes.HOME,
-    component: Login,
+    component: Login
   },
   {
     path: '/creches',
     name: Routes.CHILD_CARE_LISTE,
-    component: ChildCareList,
+    component: ChildCareList
   },
   {
     path: '/:pathMatch(.*)*',
     name: Routes.NOT_FOUND,
-    component: NotFound,
+    component: NotFound
   },
   {
     path: '/ajout-creche',
     name: Routes.ADD_CHILD_CARE,
-    component: AddChildCare,
+    component: AddChildCare
   },
   {
     path: '/creche/:id',
     name: Routes.CHILD_LIST,
-    component: ChildList,
-  
+    component: ChildList
   },
   {
     path: '/ajout-enfant/:id',
     name: Routes.ADD_CHILD,
-    component: AddChild,
+    component: AddChild
   }
 ]
 
