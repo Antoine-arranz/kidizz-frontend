@@ -11,7 +11,7 @@
         </a>
         <h1 class="text-xl font-semibold text-kidizz-gray-900">Bonjour {{ user?.username }}</h1>
       </div>
-      <KidizzButton @click="handleLogout" variant="secondary" size="sm"> Déconnexion </KidizzButton>
+      <KidizzButton @click="handleLogout" variant="secondary" size="sm" > Déconnexion </KidizzButton>
     </div>
   </header>
 </template>
