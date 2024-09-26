@@ -43,7 +43,6 @@ export const removeChildFromChildCare = async (
 
 export const searchChildByName = async (name: string): Promise<Child[] | []> => {
   const response = await axios.get(`/child/search?name=${name}`)
-  console.log(response)
   return response.data
 }
 

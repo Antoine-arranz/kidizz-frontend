@@ -9,6 +9,7 @@ import { ChildCare } from '@/interfaces/ChildCare'
 import { Child } from '@/interfaces/Child'
 import { getOneChildCare } from '@/services/ChildCareService'
 import KidizzInput from '@/components/KidizzInput.vue'
+import { noSpecialCharacter } from '@/functions/noSpecialCharacter'
 
 const route = useRoute()
 const router = useRouter()
@@ -29,8 +30,10 @@ const handleCreateChild = async () => {
       notifyError('Le prénom et le nom de lenfant sont requis.')
       return
     }
-    await createChild({ firstName: firstName.value, lastName: lastName.value, childCareId })
-    router.push({ name: Routes.CHILD_LIST, params: { id: childCareId } })
+    if (noSpecialCharacter(firstName.value) && noSpecialCharacter(lastName.value)) {
+      await createChild({ firstName: firstName.value, lastName: lastName.value, childCareId })
+      router.push({ name: Routes.CHILD_LIST, params: { id: childCareId } })
+    }
   } catch (error) {
     notifyError(error)
   } finally {
@@ -44,9 +47,11 @@ const handleSearchChild = async () => {
       throw Error('Veuillez indiquer un nom')
     }
     loading.value = true
-    searchResults.value = await searchChildByName(searchQuery.value)
-    if (!searchResults.value.length) {
-      notifyError('Aucun enfant trouvé, créez un nouvel enfant')
+    if (noSpecialCharacter(searchQuery.value) && noSpecialCharacter(lastName.value)) {
+      searchResults.value = await searchChildByName(searchQuery.value)
+      if (!searchResults.value.length) {
+        notifyError('Aucun enfant trouvé, créez un nouvel enfant')
+      }
     }
   } catch (error) {
     notifyError(error)
@@ -148,7 +153,7 @@ onMounted(() => {
           <h3 class="text-lg font-medium text-gray-900">
             Résultats de recherche : ({{ searchResults.length }})
           </h3>
-          <ul class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <ul class="grid grid-cols-1 gap-4">
             <li
               v-for="child in searchResults"
               :key="child.id"

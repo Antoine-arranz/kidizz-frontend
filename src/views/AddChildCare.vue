@@ -6,6 +6,7 @@ import { router } from '@/router'
 import { Routes } from '@/interfaces/enum/routes.enum'
 import { notifyError } from '@/plugins/toastify'
 import { createChildCare } from '@/services/ChildCareService'
+import { noSpecialCharacter } from '@/functions/noSpecialCharacter'
 
 const childCareName = ref('')
 const loading = ref(false)
@@ -17,8 +18,10 @@ const handleCreateChildCare = async () => {
       notifyError('Le nom de la crèche est requis.')
       return
     }
-    await createChildCare(childCareName.value)
-    router.push({ name: Routes.CHILD_CARE_LISTE })
+    if (noSpecialCharacter(childCareName.value)) {
+      await createChildCare(childCareName.value)
+      router.push({ name: Routes.CHILD_CARE_LISTE })
+    }
   } catch (error) {
     notifyError(error)
   } finally {

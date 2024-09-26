@@ -9,6 +9,7 @@ import { Routes } from '@/interfaces/enum/routes.enum'
 import { storeUserInSession } from '@/services/SessionService'
 import { notifyError } from '@/plugins/toastify'
 import { validateEmail } from '@/functions/validateEmail'
+import { noSpecialCharacter } from '@/functions/noSpecialCharacter'
 const username = ref('')
 const email = ref('')
 const isNewUser = ref(false)
@@ -21,12 +22,14 @@ const checkUser = async () => {
       return
     }
     loading.value = true
-    const user = await findByUsername(username.value)
-    if (user) {
-      await storeUserInSession(user)
-      router.push({ name: Routes.CHILD_CARE_LISTE })
+    if (noSpecialCharacter(username.value)) {
+      const user = await findByUsername(username.value)
+      if (user) {
+        await storeUserInSession(user)
+        router.push({ name: Routes.CHILD_CARE_LISTE })
+      }
+      isNewUser.value = true
     }
-    isNewUser.value = true
   } catch (error) {
     notifyError(error)
   } finally {
