@@ -9,11 +9,11 @@
         {{ message }}
       </p>
       <div class="flex justify-between space-x-3">
-        <KidizzButton variant="secondary" @click="onCancel">
-          {{ cancelText }}
-        </KidizzButton>
         <KidizzButton variant="primary" @click="onConfirm" :is-loading="isLoading">
           {{ confirmText }}
+        </KidizzButton>
+        <KidizzButton variant="secondary" @click="onCancel">
+          {{ cancelText }}
         </KidizzButton>
       </div>
     </div>

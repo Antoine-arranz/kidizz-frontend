@@ -105,26 +105,20 @@ onMounted(() => {
       </div>
 
       <div class="flex justify-center space-x-4 mb-6">
-        <button
-          @click="activeTab = 'create'"
-          :class="[
+        <button @click="activeTab = 'create'" :class="[
             'px-4 py-2 rounded-md transition-all duration-300 ease-in-out',
             activeTab === 'create'
               ? 'bg-kidizz-blue-100 shadow-md'
               : 'bg-gray-100 text-kidizz-gray-700 hover:bg-gray-200'
-          ]"
-        >
+          ]">
           Créer un nouvel enfant
         </button>
-        <button
-          @click="activeTab = 'associate'"
-          :class="[
+        <button @click="activeTab = 'associate'" :class="[
             'px-4 py-2 rounded-md transition-all duration-300 ease-in-out',
             activeTab === 'associate'
               ? 'bg-kidizz-blue-100 shadow-md'
               : 'bg-gray-100 text-kidizz-gray-700 hover:bg-gray-200'
-          ]"
-        >
+          ]">
           Ajouter un enfant existant
         </button>
       </div>
@@ -138,37 +132,38 @@ onMounted(() => {
       </div>
 
       <div v-if="activeTab === 'associate'" class="space-y-4">
-        <div class="flex space-x-2">
+        <div class="flex flex-col sm:flex-row space-x-2">
           <KidizzInput v-model="searchQuery" placeholder="Rechercher un enfant par nom" />
           <KidizzButton @click="handleSearchChild" :is-loading="loading"> Rechercher </KidizzButton>
         </div>
 
-        <div v-if="searchResults.length > 0" class="mt-4 bg-gray-50 rounded-md p-2">
-          <ul class="divide-y divide-gray-200">
-            <li
-              v-for="child in searchResults"
-              :key="child.id"
-              class="py-2 px-3 flex cursor-pointer transition duration-300 ease-in-out hover:bg-gray-100"
-              @click="selectChild(child)"
-              :class="{
-                'bg-kidizz-primary bg-opacity-20': selectedChild && selectedChild.id === child.id
-              }"
-            >
-              <div :class="{ 'font-semibold': selectedChild && selectedChild.id === child.id }">
-                Prénom : {{ child.firstName }} Nom : {{ child.lastName }} identifiant:
-                {{ child.id }}
+        <div v-if="searchResults.length > 0" class="mt-4 space-y-4">
+          <h3 class="text-lg font-medium text-gray-900">Résultats de recherche : ({{ searchResults.length }})</h3>
+          <ul class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <li v-for="child in searchResults" :key="child.id"
+              class="relative p-4 border border-gray-300 rounded-lg cursor-pointer transition transform duration-300 hover:shadow-lg hover:-translate-y-1 hover:border-kidizz-primary"
+              @click="selectChild(child)" :class="{
+                'bg-kidizz-primary bg-opacity-20 border-kidizz-primary': selectedChild && selectedChild.id === child.id
+              }">
+              <div class="flex flex-col">
+                <span class="text-lg font-medium text-gray-900">{{ child.firstName }} {{ child.lastName }}</span>
+                <span class="text-sm text-gray-500">Identifiant: {{ child.id }}</span>
               </div>
+
+              <!-- Icône de sélection -->
+              <span v-if="selectedChild && selectedChild.id === child.id"
+                class="absolute top-2 right-2 text-kidizz-primary">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                  stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+              </span>
             </li>
           </ul>
         </div>
 
-        <KidizzButton
-          v-if="selectedChild"
-          @click="handleAssociateChild"
-          class="w-full"
-          :is-loading="loading"
-        >
-          Associer l'enfant à la crèche
+        <KidizzButton v-if="selectedChild" @click="handleAssociateChild" class="w-full" :is-loading="loading">
+          Associer {{ selectedChild.firstName }} {{ selectedChild.lastName }} à la crèche
         </KidizzButton>
       </div>
 

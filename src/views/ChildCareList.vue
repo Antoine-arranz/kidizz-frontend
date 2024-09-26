@@ -123,7 +123,7 @@ onMounted(fetchChildCares)
               </KidizzButton>
 
               <KidizzButton @click.stop="handleExportCsv(childCare.id)" variant="primary" size="sm"
-                class="flex items-center w-full sm:w-auto px-0.5 py-0.5" :title="`Exporter ${childCare.name}`"
+                class="flex justify-center items-center w-full sm:w-auto px-0.5 py-0.5" :title="`Exporter ${childCare.name}`"
                 :is-loading="exportLoading">
                 <img :src="CsvIcon" alt="CSV Icon" class="w-6 h-6" />
               </KidizzButton>

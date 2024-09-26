@@ -2,16 +2,12 @@
   <header class="bg-white shadow-md">
     <div class="mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
       <div class="flex items-center">
-        <a href="#" @click.prevent="goToHomePage" class="flex items-center">
-          <img
-            class="h-8 w-auto mr-4"
-            src="https://app.kidizz.com/assets/brand/logo-kidizz.png"
-            alt="Kidizz Logo"
-          />
+        <a href="#" @click.prevent="goToChildCareListPage" class="flex items-center">
+          <img class="h-8 w-auto mr-4" src="https://app.kidizz.com/assets/brand/logo-kidizz.png" alt="Kidizz Logo" />
         </a>
-        <h1 class="text-xl font-semibold text-kidizz-gray-900">Bonjour {{ user?.username }}</h1>
+        <h1 class="text-lg sm:text-xl ml-2 font-semibold text-kidizz-gray-900">Bonjour {{ user?.username }}</h1>
       </div>
-      <KidizzButton @click="handleLogout" variant="secondary" size="sm" > Déconnexion </KidizzButton>
+      <KidizzButton @click="handleLogout" variant="secondary" size="sm"> Déconnexion </KidizzButton>
     </div>
   </header>
 </template>
@@ -27,7 +23,7 @@ const user = computed(() => {
   return getUserFromSession()
 })
 
-const goToHomePage = () => {
+const goToChildCareListPage = () => {
   router.push({ name: Routes.CHILD_CARE_LISTE })
 }
 const handleLogout = () => {
