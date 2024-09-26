@@ -137,6 +137,7 @@ onMounted(() => {
           <KidizzButton @click="handleSearchChild" :is-loading="loading"> Rechercher </KidizzButton>
         </div>
 
+        <!-- Résultat de recherche -->
         <div v-if="searchResults.length > 0" class="mt-4 space-y-4">
           <h3 class="text-lg font-medium text-gray-900">Résultats de recherche : ({{ searchResults.length }})</h3>
           <ul class="grid grid-cols-1 gap-4 sm:grid-cols-2">

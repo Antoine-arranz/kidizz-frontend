@@ -4,7 +4,6 @@ interface ApiErrorResponse {
   message: string | string[]
 }
 
-/** The axios instance */
 const instance = axios.create({
   withCredentials: false,
   baseURL: import.meta.env.VITE_API_URL,

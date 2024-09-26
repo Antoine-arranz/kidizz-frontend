@@ -8,6 +8,7 @@ import { router } from '@/router'
 import { Routes } from '@/interfaces/enum/routes.enum'
 import { storeUserInSession } from '@/services/SessionService'
 import { notifyError } from '@/plugins/toastify'
+import { validateEmail } from '@/functions/validateEmail'
 const username = ref('')
 const email = ref('')
 const isNewUser = ref(false)
@@ -35,6 +36,9 @@ const checkUser = async () => {
 
 const handleCreateUser = async () => {
   try {
+    if (!validateEmail(email.value)) {
+      throw new Error('Veuillez entrer une adresse email valide')
+    }
     loading.value = true
     const newUser = await createUser({ username: username.value, email: email.value })
     await storeUserInSession(newUser)
