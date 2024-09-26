@@ -84,15 +84,12 @@ onMounted(() => {
 })
 </script>
 
-
-
-
 <template>
   <div class="flex flex-col items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
     <div class="max-w-4xl w-full space-y-8 bg-white p-8 rounded-lg shadow-md">
       <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6">
-        <h2 class=" text-2xl sm:text-3xl text-kidizz-gray-900 mb-4 sm:mb-0">
-        Liste des enfants de la crèche <strong>{{ childCare && childCare.name }}</strong>
+        <h2 class="text-2xl sm:text-3xl text-kidizz-gray-900 mb-4 sm:mb-0">
+          Liste des enfants de la crèche <strong>{{ childCare && childCare.name }}</strong>
         </h2>
         <KidizzButton @click="handleCreateChild" :is-loading="loading" class="mr-2">
           Ajouter un enfant
@@ -104,7 +101,11 @@ onMounted(() => {
       <!-- Liste des enfants -->
       <div v-if="children.length > 0" class="bg-white rounded-lg shadow overflow-hidden">
         <ul class="divide-y divide-gray-200">
-          <li v-for="child in children" :key="child.id" class="p-4 flex justify-between items-center">
+          <li
+            v-for="child in children"
+            :key="child.id"
+            class="p-4 flex justify-between items-center"
+          >
             <span class="text-lg font-medium text-gray-900">
               {{ child.firstName }} {{ child.lastName }}
             </span>
@@ -126,8 +127,13 @@ onMounted(() => {
     </div>
 
     <!-- Pop-up de confirmation de suppression -->
-    <KidizzDialog :show="showDeleteConfirmation" title="Confirmer la suppression"
+    <KidizzDialog
+      :show="showDeleteConfirmation"
+      title="Confirmer la suppression"
       :message="`Êtes-vous sûr de vouloir supprimer l'enfant ${childToDelete?.firstName} ${childToDelete?.lastName} ? Cette action est irréversible.`"
-      @cancel="closeDeleteConfirmation" @confirm="handleDeleteChild" :is-loading="loading" />
+      @cancel="closeDeleteConfirmation"
+      @confirm="handleDeleteChild"
+      :is-loading="loading"
+    />
   </div>
 </template>
